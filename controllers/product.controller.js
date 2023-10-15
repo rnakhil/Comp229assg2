@@ -51,7 +51,8 @@ module.exports.update = async (req, res) => {
       const id = req.params._id; // Get the ID from the URL parameter
       const updateData = req.body; // Data to update, sent in the request body
   
-      const updatedDocument = await ProductModel.findByIdAndUpdate(id, updateData, { new: true, runValidators:true });
+    //   const updatedDocument = await ProductModel.findByIdAndUpdate(id, updateData, { new: true, runValidators:true });
+      const updatedDocument = await ProductModel.findOneAndUpdate({ _id: id }, updateData, { new: true, runValidators:true, overwrite: true });
   
       if (!updatedDocument) {
         return res.status(404).json({ message: 'Document not found' });
